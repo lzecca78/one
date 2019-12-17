@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: one
+  labels:
+    app: one
+    project: one
+spec:
+  selector:
+    matchLabels:
+      app: one
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: one
+        project: one
+    spec:
+      serviceAccountName: one
+      containers:
+        - name: one
+          image: '325969431625.dkr.ecr.eu-west-1.amazonaws.com/one:latest'
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: one-env
+            - configMapRef:
+                name: one-config-env
+          env:
+            - name: ONE_K8S_SRCNAMESPACE
+              value: staging
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: one-config
+              mountPath: /one
+            - name: one-github-oauth
+              mountPath: /github
+      volumes:
+        - name: one-config
+          secret:
+            secretName: one-config
+        - name: one-github-oauth
+          secret:
+            secretName: one-github-oauth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: one
+  labels:
+    app: one
+    project: one
+spec:
+  ports:
+    - port: 8080
+      targetPort: http
+      name: http
+  selector:
+    app: one

@@ -1,0 +1,22 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: one-backend-internal
+  annotations:
+    forecastle.stakater.com/expose: 'true'
+    forecastle.stakater.com/icon: 'https://wp.avondale.edu.au/news/wp-content/uploads/sites/2/2015/07/the-One-project-logo-600-400-px.jpg'
+    kubernetes.io/ingress.class: internal
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+  labels:
+    app: one
+    project: one
+spec:
+  rules:
+    - host: one.example.com
+      http:
+        paths:
+          - path: '/api'
+            backend:
+              serviceName: one
+              servicePort: http
