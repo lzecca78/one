@@ -4,7 +4,7 @@ Multiverse backend for multistaging environments
 
 ## Authors
 
-This project was developed by me and @phisco
+This project was developed by me and https://github.com/phisco
 
 ## Purpose
 
