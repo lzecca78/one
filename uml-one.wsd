@@ -1,0 +1,8 @@
+@startuml
+    scale 2
+    Frontend -> BackendOne ++: "GET /api/repos"
+    return "{"repo1-name":\n[{"branch":"branch1-name",\n"sha":"357ebac6a80fafc278",\n"comment":"awesome comment branch1 head"},\n[{"branch":"branch2-name",\n"sha":"458ebac10a80fafc284",\n"comment":"awesome comment branch2 head"}..]},\n{"repo2-name":\n[{"branch":"branch1-name",\n"sha":"357ebac6a80fafc278",\n"comment":"awesome comment branch1 head"},\n[{"branch":"branch2-name",\n"sha":"458ebac10a80fafc284",\n"comment":"awesome comment branch2 head"}..]}"
+
+    Frontend -> BackendOne ++: "POST /api/stagings" \n{"repo1-name":\n{"sha":"111111111111111"}}
+    return "{"namespace": "ns-name", \n"FqdnIngress": "pippo.pluto.it"}
+@enduml
