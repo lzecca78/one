@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains the information about the request to list your
 // traffic policies.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTrafficPolicyVersionsRequest
 type ListTrafficPolicyVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -87,7 +86,6 @@ func (s ListTrafficPolicyVersionsInput) MarshalFields(e protocol.FieldEncoder) e
 }
 
 // A complex type that contains the response information for the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTrafficPolicyVersionsResponse
 type ListTrafficPolicyVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -141,7 +139,7 @@ func (s ListTrafficPolicyVersionsOutput) MarshalFields(e protocol.FieldEncoder) 
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "MaxItems", protocol.StringValue(v), metadata)
 	}
-	if len(s.TrafficPolicies) > 0 {
+	if s.TrafficPolicies != nil {
 		v := s.TrafficPolicies
 
 		metadata := protocol.Metadata{ListLocationName: "TrafficPolicy"}
@@ -191,6 +189,7 @@ func (c *Client) ListTrafficPolicyVersionsRequest(input *ListTrafficPolicyVersio
 	}
 
 	req := c.newRequest(op, input, &ListTrafficPolicyVersionsOutput{})
+
 	return ListTrafficPolicyVersionsRequest{Request: req, Input: input, Copy: c.ListTrafficPolicyVersionsRequest}
 }
 

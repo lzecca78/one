@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains information about the request to create a hosted
 // zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimitRequest
 type GetHostedZoneLimitInput struct {
 	_ struct{} `type:"structure"`
 
@@ -74,7 +73,6 @@ func (s GetHostedZoneLimitInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains the requested limit.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimitResponse
 type GetHostedZoneLimitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -149,6 +147,7 @@ func (c *Client) GetHostedZoneLimitRequest(input *GetHostedZoneLimitInput) GetHo
 	}
 
 	req := c.newRequest(op, input, &GetHostedZoneLimitOutput{})
+
 	return GetHostedZoneLimitRequest{Request: req, Input: input, Copy: c.GetHostedZoneLimitRequest}
 }
 

@@ -1,9 +1,5 @@
 package aws
 
-import (
-	"net/http"
-)
-
 // A Config provides service configuration for service clients.
 type Config struct {
 	// The region to send requests to. This parameter is required and must
@@ -24,26 +20,20 @@ type Config struct {
 	// to use based on region.
 	EndpointResolver EndpointResolver
 
-	// The HTTP client to use when sending requests. Defaults to
-	// `http.DefaultClient`.
-	HTTPClient *http.Client
+	// The HTTP Client the SDK's API clients will use to invoke HTTP requests.
+	// The SDK defaults to a BuildableHTTPClient allowing API clients to create
+	// copies of the HTTP Client for service specific customizations.
+	//
+	// Use a (*http.Client) for custom behavior. Using a custom http.Client
+	// will prevent the SDK from modifying the HTTP client.
+	HTTPClient HTTPClient
 
 	// TODO document
 	Handlers Handlers
 
 	// Retryer guides how HTTP requests should be retried in case of
-	// recoverable failures.
-	//
-	// When nil or the value does not implement the request.Retryer interface,
-	// the client.DefaultRetryer will be used.
-	//
-	// When both Retryer and MaxRetries are non-nil, the former is used and
-	// the latter ignored.
-	//
-	// To set the Retryer field in a type-safe manner and with chaining, use
-	// the request.WithRetryer helper function:
-	//
-	//   cfg := request.WithRetryer(aws.NewConfig(), myRetryer)
+	// recoverable failures. When nil the API client will use a default
+	// retryer.
 	Retryer Retryer
 
 	// An integer value representing the logging level. The default log level
@@ -54,15 +44,6 @@ type Config struct {
 	// The logger writer interface to write logging messages to. Defaults to
 	// standard out.
 	Logger Logger
-
-	// EnforceShouldRetryCheck is used in the AfterRetryHandler to always call
-	// ShouldRetry regardless of whether or not if request.Retryable is set.
-	// This will utilize ShouldRetry method of custom retryers. If EnforceShouldRetryCheck
-	// is not set, then ShouldRetry will only be called if request.Retryable is nil.
-	// Proper handling of the request.Retryable field is important when setting this field.
-	//
-	// TODO this config field is depercated and needs removed.
-	EnforceShouldRetryCheck bool
 
 	// DisableRestProtocolURICleaning will not clean the URL path when making
 	// rest protocol requests.  Will default to false. This would only be used
@@ -87,6 +68,14 @@ type Config struct {
 	// Disabling this feature is useful when you want to use local endpoints
 	// for testing that do not support the modeled host prefix pattern.
 	DisableEndpointHostPrefix bool
+
+	// EnableEndpointDiscovery will allow for endpoint discovery on operations that
+	// have the definition in its model. By default, endpoint discovery is off.
+	EnableEndpointDiscovery bool
+
+	// ConfigSources are the sources that were used to construct the Config.
+	// Allows for additional configuration to be loaded by clients.
+	ConfigSources []interface{}
 }
 
 // NewConfig returns a new Config pointer that can be chained with builder

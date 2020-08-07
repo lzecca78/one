@@ -11,7 +11,6 @@ import (
 )
 
 // A request to delete a reusable delegation set.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteReusableDelegationSetRequest
 type DeleteReusableDelegationSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -53,7 +52,6 @@ func (s DeleteReusableDelegationSetInput) MarshalFields(e protocol.FieldEncoder)
 }
 
 // An empty element.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteReusableDelegationSetResponse
 type DeleteReusableDelegationSetOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -103,6 +101,7 @@ func (c *Client) DeleteReusableDelegationSetRequest(input *DeleteReusableDelegat
 	}
 
 	req := c.newRequest(op, input, &DeleteReusableDelegationSetOutput{})
+
 	return DeleteReusableDelegationSetRequest{Request: req, Input: input, Copy: c.DeleteReusableDelegationSetRequest}
 }
 

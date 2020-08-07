@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains information about a request to update a health
 // check.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/UpdateHealthCheckRequest
 type UpdateHealthCheckInput struct {
 	_ struct{} `locationName:"UpdateHealthCheckRequest" type:"structure" xmlURI:"https://route53.amazonaws.com/doc/2013-04-01/"`
 
@@ -71,7 +70,7 @@ type UpdateHealthCheckInput struct {
 	// The number of consecutive health checks that an endpoint must pass or fail
 	// for Amazon Route 53 to change the current status of the endpoint from unhealthy
 	// to healthy or vice versa. For more information, see How Amazon Route 53 Determines
-	// Whether an Endpoint Is Healthy (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
+	// Whether an Endpoint Is Healthy (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
 	// in the Amazon Route 53 Developer Guide.
 	//
 	// If you don't specify a value for FailureThreshold, the default value is three
@@ -242,8 +241,11 @@ type UpdateHealthCheckInput struct {
 	// would be considered healthy.
 	Inverted *bool `type:"boolean"`
 
-	// The port on the endpoint on which you want Amazon Route 53 to perform health
-	// checks.
+	// The port on the endpoint that you want Amazon Route 53 to perform health
+	// checks on.
+	//
+	// Don't specify a value for Port when you specify a value for Type of CLOUDWATCH_METRIC
+	// or CALCULATED.
 	Port *int64 `min:"1" type:"integer"`
 
 	// A complex type that contains one Region element for each region that you
@@ -276,7 +278,7 @@ type UpdateHealthCheckInput struct {
 	// Specify this value only if you want to change it.
 	ResourcePath *string `type:"string"`
 
-	// If the value of Type is HTTP_STR_MATCH or HTTP_STR_MATCH, the string that
+	// If the value of Type is HTTP_STR_MATCH or HTTPS_STR_MATCH, the string that
 	// you want Amazon Route 53 to search for in the response body from the specified
 	// resource. If the string appears in the response body, Route 53 considers
 	// the resource healthy. (You can't change the value of Type when you update
@@ -330,7 +332,7 @@ func (s UpdateHealthCheckInput) MarshalFields(e protocol.FieldEncoder) error {
 			metadata := protocol.Metadata{}
 			e.SetFields(protocol.BodyTarget, "AlarmIdentifier", v, metadata)
 		}
-		if len(s.ChildHealthChecks) > 0 {
+		if s.ChildHealthChecks != nil {
 			v := s.ChildHealthChecks
 
 			metadata := protocol.Metadata{ListLocationName: "ChildHealthCheck"}
@@ -402,7 +404,7 @@ func (s UpdateHealthCheckInput) MarshalFields(e protocol.FieldEncoder) error {
 			metadata := protocol.Metadata{}
 			e.SetValue(protocol.BodyTarget, "Port", protocol.Int64Value(v), metadata)
 		}
-		if len(s.Regions) > 0 {
+		if s.Regions != nil {
 			v := s.Regions
 
 			metadata := protocol.Metadata{ListLocationName: "Region"}
@@ -414,7 +416,7 @@ func (s UpdateHealthCheckInput) MarshalFields(e protocol.FieldEncoder) error {
 			ls0.End()
 
 		}
-		if len(s.ResetElements) > 0 {
+		if s.ResetElements != nil {
 			v := s.ResetElements
 
 			metadata := protocol.Metadata{ListLocationName: "ResettableElementName"}
@@ -450,7 +452,6 @@ func (s UpdateHealthCheckInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains the response to the UpdateHealthCheck request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/UpdateHealthCheckResponse
 type UpdateHealthCheckOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -484,7 +485,7 @@ const opUpdateHealthCheck = "UpdateHealthCheck"
 // Updates an existing health check. Note that some values can't be updated.
 //
 // For more information about updating health checks, see Creating, Updating,
-// and Deleting Health Checks (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html)
+// and Deleting Health Checks (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html)
 // in the Amazon Route 53 Developer Guide.
 //
 //    // Example sending a request using UpdateHealthCheckRequest.
@@ -507,6 +508,7 @@ func (c *Client) UpdateHealthCheckRequest(input *UpdateHealthCheckInput) UpdateH
 	}
 
 	req := c.newRequest(op, input, &UpdateHealthCheckOutput{})
+
 	return UpdateHealthCheckRequest{Request: req, Input: input, Copy: c.UpdateHealthCheckRequest}
 }
 

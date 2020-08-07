@@ -12,7 +12,6 @@ import (
 
 // A request to retrieve a list of the public and private hosted zones that
 // are associated with the current AWS account.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListHostedZonesRequest
 type ListHostedZonesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -69,7 +68,6 @@ func (s ListHostedZonesInput) MarshalFields(e protocol.FieldEncoder) error {
 	return nil
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListHostedZonesResponse
 type ListHostedZonesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -114,7 +112,7 @@ func (s ListHostedZonesOutput) String() string {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s ListHostedZonesOutput) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.HostedZones) > 0 {
+	if s.HostedZones != nil {
 		v := s.HostedZones
 
 		metadata := protocol.Metadata{ListLocationName: "HostedZone"}
@@ -192,6 +190,7 @@ func (c *Client) ListHostedZonesRequest(input *ListHostedZonesInput) ListHostedZ
 	}
 
 	req := c.newRequest(op, input, &ListHostedZonesOutput{})
+
 	return ListHostedZonesRequest{Request: req, Input: input, Copy: c.ListHostedZonesRequest}
 }
 

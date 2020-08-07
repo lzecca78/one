@@ -12,7 +12,6 @@ import (
 
 // A request to get a list of geographic locations that Amazon Route 53 supports
 // for geolocation resource record sets.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListGeoLocationsRequest
 type ListGeoLocationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -37,18 +36,15 @@ type ListGeoLocationsInput struct {
 	// a page or more of results, if IsTruncated is true, and if NextCountryCode
 	// from the previous response has a value, enter that value in startcountrycode
 	// to return the next page of results.
-	//
-	// Route 53 uses the two-letter country codes that are specified in ISO standard
-	// 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 	StartCountryCode *string `location:"querystring" locationName:"startcountrycode" min:"1" type:"string"`
 
-	// The code for the subdivision (for example, state or province) with which
-	// you want to start listing locations that Amazon Route 53 supports for geolocation.
-	// If Route 53 has already returned a page or more of results, if IsTruncated
-	// is true, and if NextSubdivisionCode from the previous response has a value,
-	// enter that value in startsubdivisioncode to return the next page of results.
+	// The code for the state of the United States with which you want to start
+	// listing locations that Amazon Route 53 supports for geolocation. If Route
+	// 53 has already returned a page or more of results, if IsTruncated is true,
+	// and if NextSubdivisionCode from the previous response has a value, enter
+	// that value in startsubdivisioncode to return the next page of results.
 	//
-	// To list subdivisions of a country, you must include both startcountrycode
+	// To list subdivisions (U.S. states), you must include both startcountrycode
 	// and startsubdivisioncode.
 	StartSubdivisionCode *string `location:"querystring" locationName:"startsubdivisioncode" min:"1" type:"string"`
 }
@@ -108,7 +104,6 @@ func (s ListGeoLocationsInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type containing the response information for the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListGeoLocationsResponse
 type ListGeoLocationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -155,7 +150,7 @@ func (s ListGeoLocationsOutput) String() string {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s ListGeoLocationsOutput) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.GeoLocationDetailsList) > 0 {
+	if s.GeoLocationDetailsList != nil {
 		v := s.GeoLocationDetailsList
 
 		metadata := protocol.Metadata{ListLocationName: "GeoLocationDetails"}
@@ -212,6 +207,9 @@ const opListGeoLocations = "ListGeoLocations"
 // the subdivisions for that country are listed in alphabetical order immediately
 // after the corresponding country.
 //
+// For a list of supported geolocation codes, see the GeoLocation (https://docs.aws.amazon.com/Route53/latest/APIReference/API_GeoLocation.html)
+// data type.
+//
 //    // Example sending a request using ListGeoLocationsRequest.
 //    req := client.ListGeoLocationsRequest(params)
 //    resp, err := req.Send(context.TODO())
@@ -232,6 +230,7 @@ func (c *Client) ListGeoLocationsRequest(input *ListGeoLocationsInput) ListGeoLo
 	}
 
 	req := c.newRequest(op, input, &ListGeoLocationsOutput{})
+
 	return ListGeoLocationsRequest{Request: req, Input: input, Copy: c.ListGeoLocationsRequest}
 }
 

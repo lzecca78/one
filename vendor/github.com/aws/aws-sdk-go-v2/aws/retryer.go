@@ -1,161 +1,62 @@
 package aws
 
 import (
+	"context"
+	"fmt"
 	"time"
-
-	"github.com/aws/aws-sdk-go-v2/aws/awserr"
 )
 
-// Retryer is an interface to control retry logic for a given service.
-// The default implementation used by most services is the client.DefaultRetryer
-// structure, which contains basic retry logic using exponential backoff.
+// Retryer is an interface to determine if a given error from a
+// request should be retried, and if so what backoff delay to apply. The
+// default implementation used by most services is the retry package's Standard
+// type. Which contains basic retry logic using exponential backoff.
 type Retryer interface {
-	RetryRules(*Request) time.Duration
-	ShouldRetry(*Request) bool
-	MaxRetries() int
+	// IsErrorRetryable returns if the failed request is retryable. This check
+	// should determine if the error can be retried, or if the error is
+	// terminal.
+	IsErrorRetryable(error) bool
+
+	// MaxAttempts returns the maximum number of attempts that can be made for
+	// a request before failing. A value of 0 implies that the request should
+	// be retried until it succeeds if the errors are retryable.
+	MaxAttempts() int
+
+	// RetryDelay returns the delay that should be used before retrying the
+	// request. Will return error if the if the delay could not be determined.
+	RetryDelay(attempt int, opErr error) (time.Duration, error)
+
+	// GetRetryToken attempts to deduct the retry cost from the retry token pool.
+	// Returning the token release function, or error.
+	GetRetryToken(ctx context.Context, opErr error) (releaseToken func(error) error, err error)
+
+	// GetInitalToken returns the initial request token that can increment the
+	// retry token pool if the request is successful.
+	GetInitialToken() (releaseToken func(error) error)
 }
 
-// WithRetryer sets a config Retryer value to the given Config returning it
-// for chaining.
-func WithRetryer(cfg *Config, retryer Retryer) *Config {
-	cfg.Retryer = retryer
-	return cfg
+// NoOpRetryer provides a RequestRetryDecider implementation that will flag
+// all attempt errors as not retryable, with a max attempts of 1.
+type NoOpRetryer struct{}
+
+// IsErrorRetryable returns false for all error values.
+func (NoOpRetryer) IsErrorRetryable(error) bool { return false }
+
+// MaxAttempts always returns 1 for the original request attempt.
+func (NoOpRetryer) MaxAttempts() int { return 1 }
+
+// RetryDelay is not valid for the NoOpRetryer. Will always return error.
+func (NoOpRetryer) RetryDelay(int, error) (time.Duration, error) {
+	return 0, fmt.Errorf("not retrying any request errors")
 }
 
-// retryableCodes is a collection of service response codes which are retry-able
-// without any further action.
-var retryableCodes = map[string]struct{}{
-	"RequestError":            {},
-	"RequestTimeout":          {},
-	ErrCodeResponseTimeout:    {},
-	"RequestTimeoutException": {}, // Glacier's flavor of RequestTimeout
+// GetRetryToken returns a stub function that does nothing.
+func (NoOpRetryer) GetRetryToken(context.Context, error) (func(error) error, error) {
+	return nopReleaseToken, nil
 }
 
-var throttleCodes = map[string]struct{}{
-	"ProvisionedThroughputExceededException": {},
-	"Throttling":                             {},
-	"ThrottlingException":                    {},
-	"RequestLimitExceeded":                   {},
-	"RequestThrottled":                       {},
-	"RequestThrottledException":              {},
-	"TooManyRequestsException":               {}, // Lambda functions
-	"PriorRequestNotComplete":                {}, // Route53
+// GetInitialToken returns a stub function that does nothing.
+func (NoOpRetryer) GetInitialToken() func(error) error {
+	return nopReleaseToken
 }
 
-// credsExpiredCodes is a collection of error codes which signify the credentials
-// need to be refreshed. Expired tokens require refreshing of credentials, and
-// resigning before the request can be retried.
-var credsExpiredCodes = map[string]struct{}{
-	"ExpiredToken":          {},
-	"ExpiredTokenException": {},
-	"RequestExpired":        {}, // EC2 Only
-}
-
-func isCodeThrottle(code string) bool {
-	_, ok := throttleCodes[code]
-	return ok
-}
-
-func isCodeRetryable(code string) bool {
-	if _, ok := retryableCodes[code]; ok {
-		return true
-	}
-
-	return isCodeExpiredCreds(code)
-}
-
-func isCodeExpiredCreds(code string) bool {
-	_, ok := credsExpiredCodes[code]
-	return ok
-}
-
-var validParentCodes = map[string]struct{}{
-	ErrCodeSerialization: {},
-	ErrCodeRead:          {},
-}
-
-type temporaryError interface {
-	Temporary() bool
-}
-
-func isNestedErrorRetryable(parentErr awserr.Error) bool {
-	if parentErr == nil {
-		return false
-	}
-
-	if _, ok := validParentCodes[parentErr.Code()]; !ok {
-		return false
-	}
-
-	err := parentErr.OrigErr()
-	if err == nil {
-		return false
-	}
-
-	if aerr, ok := err.(awserr.Error); ok {
-		return isCodeRetryable(aerr.Code())
-	}
-
-	if t, ok := err.(temporaryError); ok {
-		return t.Temporary() || isErrConnectionReset(err)
-	}
-
-	return isErrConnectionReset(err)
-}
-
-// IsErrorRetryable returns whether the error is retryable, based on its Code.
-// Returns false if error is nil.
-func IsErrorRetryable(err error) bool {
-	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok {
-			return isCodeRetryable(aerr.Code()) || isNestedErrorRetryable(aerr)
-		}
-	}
-	return false
-}
-
-// IsErrorThrottle returns whether the error is to be throttled based on its code.
-// Returns false if error is nil.
-func IsErrorThrottle(err error) bool {
-	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok {
-			return isCodeThrottle(aerr.Code())
-		}
-	}
-	return false
-}
-
-// IsErrorExpiredCreds returns whether the error code is a credential expiry error.
-// Returns false if error is nil.
-func IsErrorExpiredCreds(err error) bool {
-	if err != nil {
-		if aerr, ok := err.(awserr.Error); ok {
-			return isCodeExpiredCreds(aerr.Code())
-		}
-	}
-	return false
-}
-
-// IsErrorRetryable returns whether the error is retryable, based on its Code.
-// Returns false if the request has no Error set.
-//
-// Alias for the utility function IsErrorRetryable
-func (r *Request) IsErrorRetryable() bool {
-	return IsErrorRetryable(r.Error)
-}
-
-// IsErrorThrottle returns whether the error is to be throttled based on its code.
-// Returns false if the request has no Error set
-//
-// Alias for the utility function IsErrorThrottle
-func (r *Request) IsErrorThrottle() bool {
-	return IsErrorThrottle(r.Error)
-}
-
-// IsErrorExpired returns whether the error code is a credential expiry error.
-// Returns false if the request has no Error set.
-//
-// Alias for the utility function IsErrorExpiredCreds
-func (r *Request) IsErrorExpired() bool {
-	return IsErrorExpiredCreds(r.Error)
-}
+func nopReleaseToken(error) error { return nil }

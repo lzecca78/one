@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains information about the tags that you want to
 // add, edit, or delete.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeTagsForResourceRequest
 type ChangeTagsForResourceInput struct {
 	_ struct{} `locationName:"ChangeTagsForResourceRequest" type:"structure" xmlURI:"https://route53.amazonaws.com/doc/2013-04-01/"`
 
@@ -74,7 +73,7 @@ func (s *ChangeTagsForResourceInput) Validate() error {
 func (s ChangeTagsForResourceInput) MarshalFields(e protocol.FieldEncoder) error {
 
 	e.SetFields(protocol.BodyTarget, "ChangeTagsForResourceRequest", protocol.FieldMarshalerFunc(func(e protocol.FieldEncoder) error {
-		if len(s.AddTags) > 0 {
+		if s.AddTags != nil {
 			v := s.AddTags
 
 			metadata := protocol.Metadata{ListLocationName: "Tag"}
@@ -86,7 +85,7 @@ func (s ChangeTagsForResourceInput) MarshalFields(e protocol.FieldEncoder) error
 			ls0.End()
 
 		}
-		if len(s.RemoveTagKeys) > 0 {
+		if s.RemoveTagKeys != nil {
 			v := s.RemoveTagKeys
 
 			metadata := protocol.Metadata{ListLocationName: "Key"}
@@ -116,7 +115,6 @@ func (s ChangeTagsForResourceInput) MarshalFields(e protocol.FieldEncoder) error
 }
 
 // Empty response for the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeTagsForResourceResponse
 type ChangeTagsForResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -162,6 +160,7 @@ func (c *Client) ChangeTagsForResourceRequest(input *ChangeTagsForResourceInput)
 	}
 
 	req := c.newRequest(op, input, &ChangeTagsForResourceOutput{})
+
 	return ChangeTagsForResourceRequest{Request: req, Input: input, Copy: c.ChangeTagsForResourceRequest}
 }
 

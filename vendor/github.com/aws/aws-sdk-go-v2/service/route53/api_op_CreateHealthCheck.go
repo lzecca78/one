@@ -11,7 +11,6 @@ import (
 )
 
 // A complex type that contains the health check request information.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateHealthCheckRequest
 type CreateHealthCheckInput struct {
 	_ struct{} `locationName:"CreateHealthCheckRequest" type:"structure" xmlURI:"https://route53.amazonaws.com/doc/2013-04-01/"`
 
@@ -98,7 +97,6 @@ func (s CreateHealthCheckInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type containing the response information for the new health check.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateHealthCheckResponse
 type CreateHealthCheckOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -172,7 +170,7 @@ const opCreateHealthCheck = "CreateHealthCheck"
 //    of the Amazon EC2 StatusCheckFailed metric, add an alarm to the metric,
 //    and then create a health check that is based on the state of the alarm.
 //    For information about creating CloudWatch metrics and alarms by using
-//    the CloudWatch console, see the Amazon CloudWatch User Guide (http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html).
+//    the CloudWatch console, see the Amazon CloudWatch User Guide (https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html).
 //
 //    // Example sending a request using CreateHealthCheckRequest.
 //    req := client.CreateHealthCheckRequest(params)
@@ -194,6 +192,7 @@ func (c *Client) CreateHealthCheckRequest(input *CreateHealthCheckInput) CreateH
 	}
 
 	req := c.newRequest(op, input, &CreateHealthCheckOutput{})
+
 	return CreateHealthCheckRequest{Request: req, Input: input, Copy: c.CreateHealthCheckRequest}
 }
 

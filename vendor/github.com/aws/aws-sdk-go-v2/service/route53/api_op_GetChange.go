@@ -11,7 +11,6 @@ import (
 )
 
 // The input for a GetChange request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetChangeRequest
 type GetChangeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -55,7 +54,6 @@ func (s GetChangeInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains the ChangeInfo element.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetChangeResponse
 type GetChangeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -116,6 +114,7 @@ func (c *Client) GetChangeRequest(input *GetChangeInput) GetChangeRequest {
 	}
 
 	req := c.newRequest(op, input, &GetChangeOutput{})
+
 	return GetChangeRequest{Request: req, Input: input, Copy: c.GetChangeRequest}
 }
 

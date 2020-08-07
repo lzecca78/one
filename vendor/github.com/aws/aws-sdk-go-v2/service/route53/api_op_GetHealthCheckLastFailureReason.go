@@ -11,7 +11,6 @@ import (
 )
 
 // A request for the reason that a health check failed most recently.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckLastFailureReasonRequest
 type GetHealthCheckLastFailureReasonInput struct {
 	_ struct{} `type:"structure"`
 
@@ -60,7 +59,6 @@ func (s GetHealthCheckLastFailureReasonInput) MarshalFields(e protocol.FieldEnco
 
 // A complex type that contains the response to a GetHealthCheckLastFailureReason
 // request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckLastFailureReasonResponse
 type GetHealthCheckLastFailureReasonOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -78,7 +76,7 @@ func (s GetHealthCheckLastFailureReasonOutput) String() string {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s GetHealthCheckLastFailureReasonOutput) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.HealthCheckObservations) > 0 {
+	if s.HealthCheckObservations != nil {
 		v := s.HealthCheckObservations
 
 		metadata := protocol.Metadata{ListLocationName: "HealthCheckObservation"}
@@ -120,6 +118,7 @@ func (c *Client) GetHealthCheckLastFailureReasonRequest(input *GetHealthCheckLas
 	}
 
 	req := c.newRequest(op, input, &GetHealthCheckLastFailureReasonOutput{})
+
 	return GetHealthCheckLastFailureReasonRequest{Request: req, Input: input, Copy: c.GetHealthCheckLastFailureReasonRequest}
 }
 

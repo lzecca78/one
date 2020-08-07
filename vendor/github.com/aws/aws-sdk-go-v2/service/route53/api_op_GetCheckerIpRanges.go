@@ -11,7 +11,6 @@ import (
 )
 
 // Empty request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetCheckerIpRangesRequest
 type GetCheckerIpRangesInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -28,7 +27,6 @@ func (s GetCheckerIpRangesInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains the CheckerIpRanges element.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetCheckerIpRangesResponse
 type GetCheckerIpRangesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -46,7 +44,7 @@ func (s GetCheckerIpRangesOutput) String() string {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s GetCheckerIpRangesOutput) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.CheckerIpRanges) > 0 {
+	if s.CheckerIpRanges != nil {
 		v := s.CheckerIpRanges
 
 		metadata := protocol.Metadata{}
@@ -69,7 +67,7 @@ const opGetCheckerIpRanges = "GetCheckerIpRanges"
 //
 // GetCheckerIpRanges still works, but we recommend that you download ip-ranges.json,
 // which includes IP address ranges for all AWS services. For more information,
-// see IP Address Ranges of Amazon Route 53 Servers (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-ip-addresses.html)
+// see IP Address Ranges of Amazon Route 53 Servers (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-ip-addresses.html)
 // in the Amazon Route 53 Developer Guide.
 //
 //    // Example sending a request using GetCheckerIpRangesRequest.
@@ -92,6 +90,7 @@ func (c *Client) GetCheckerIpRangesRequest(input *GetCheckerIpRangesInput) GetCh
 	}
 
 	req := c.newRequest(op, input, &GetCheckerIpRangesOutput{})
+
 	return GetCheckerIpRangesRequest{Request: req, Input: input, Copy: c.GetCheckerIpRangesRequest}
 }
 

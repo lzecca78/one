@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/internal/awsutil"
 )
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/GetCallerIdentityRequest
 type GetCallerIdentityInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -21,7 +20,6 @@ func (s GetCallerIdentityInput) String() string {
 
 // Contains the response to a successful GetCallerIdentity request, including
 // information about the entity making the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/GetCallerIdentityResponse
 type GetCallerIdentityOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -49,8 +47,16 @@ const opGetCallerIdentity = "GetCallerIdentity"
 // GetCallerIdentityRequest returns a request value for making API operation for
 // AWS Security Token Service.
 //
-// Returns details about the IAM identity whose credentials are used to call
-// the API.
+// Returns details about the IAM user or role whose credentials are used to
+// call the operation.
+//
+// No permissions are required to perform this operation. If an administrator
+// adds a policy to your IAM user or role that explicitly denies access to the
+// sts:GetCallerIdentity action, you can still perform this operation. Permissions
+// are not required because the same information is returned when an IAM user
+// or role is denied access. To view an example response, see I Am Not Authorized
+// to Perform: iam:DeleteVirtualMFADevice (https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa)
+// in the IAM User Guide.
 //
 //    // Example sending a request using GetCallerIdentityRequest.
 //    req := client.GetCallerIdentityRequest(params)
@@ -72,6 +78,7 @@ func (c *Client) GetCallerIdentityRequest(input *GetCallerIdentityInput) GetCall
 	}
 
 	req := c.newRequest(op, input, &GetCallerIdentityOutput{})
+
 	return GetCallerIdentityRequest{Request: req, Input: input, Copy: c.GetCallerIdentityRequest}
 }
 

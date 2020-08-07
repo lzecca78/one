@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains the information about the request to list your
 // traffic policy instances.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTrafficPolicyInstancesByPolicyRequest
 type ListTrafficPolicyInstancesByPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -145,7 +144,6 @@ func (s ListTrafficPolicyInstancesByPolicyInput) MarshalFields(e protocol.FieldE
 }
 
 // A complex type that contains the response information for the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTrafficPolicyInstancesByPolicyResponse
 type ListTrafficPolicyInstancesByPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -223,7 +221,7 @@ func (s ListTrafficPolicyInstancesByPolicyOutput) MarshalFields(e protocol.Field
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "TrafficPolicyInstanceTypeMarker", v, metadata)
 	}
-	if len(s.TrafficPolicyInstances) > 0 {
+	if s.TrafficPolicyInstances != nil {
 		v := s.TrafficPolicyInstances
 
 		metadata := protocol.Metadata{ListLocationName: "TrafficPolicyInstance"}
@@ -275,6 +273,7 @@ func (c *Client) ListTrafficPolicyInstancesByPolicyRequest(input *ListTrafficPol
 	}
 
 	req := c.newRequest(op, input, &ListTrafficPolicyInstancesByPolicyOutput{})
+
 	return ListTrafficPolicyInstancesByPolicyRequest{Request: req, Input: input, Copy: c.ListTrafficPolicyInstancesByPolicyRequest}
 }
 

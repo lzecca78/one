@@ -11,7 +11,6 @@ import (
 )
 
 // A request to get the status for a health check.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckStatusRequest
 type GetHealthCheckStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -59,7 +58,6 @@ func (s GetHealthCheckStatusInput) MarshalFields(e protocol.FieldEncoder) error 
 }
 
 // A complex type that contains the response to a GetHealthCheck request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckStatusResponse
 type GetHealthCheckStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -77,7 +75,7 @@ func (s GetHealthCheckStatusOutput) String() string {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s GetHealthCheckStatusOutput) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.HealthCheckObservations) > 0 {
+	if s.HealthCheckObservations != nil {
 		v := s.HealthCheckObservations
 
 		metadata := protocol.Metadata{ListLocationName: "HealthCheckObservation"}
@@ -119,6 +117,7 @@ func (c *Client) GetHealthCheckStatusRequest(input *GetHealthCheckStatusInput) G
 	}
 
 	req := c.newRequest(op, input, &GetHealthCheckStatusOutput{})
+
 	return GetHealthCheckStatusRequest{Request: req, Input: input, Copy: c.GetHealthCheckStatusRequest}
 }
 

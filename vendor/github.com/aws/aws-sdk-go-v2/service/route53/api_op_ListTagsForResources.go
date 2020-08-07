@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains information about the health checks or hosted
 // zones for which you want to list tags.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTagsForResourcesRequest
 type ListTagsForResourcesInput struct {
 	_ struct{} `locationName:"ListTagsForResourcesRequest" type:"structure" xmlURI:"https://route53.amazonaws.com/doc/2013-04-01/"`
 
@@ -61,7 +60,7 @@ func (s *ListTagsForResourcesInput) Validate() error {
 func (s ListTagsForResourcesInput) MarshalFields(e protocol.FieldEncoder) error {
 
 	e.SetFields(protocol.BodyTarget, "ListTagsForResourcesRequest", protocol.FieldMarshalerFunc(func(e protocol.FieldEncoder) error {
-		if len(s.ResourceIds) > 0 {
+		if s.ResourceIds != nil {
 			v := s.ResourceIds
 
 			metadata := protocol.Metadata{ListLocationName: "ResourceId"}
@@ -85,7 +84,6 @@ func (s ListTagsForResourcesInput) MarshalFields(e protocol.FieldEncoder) error 
 }
 
 // A complex type containing tags for the specified resources.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTagsForResourcesResponse
 type ListTagsForResourcesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -102,7 +100,7 @@ func (s ListTagsForResourcesOutput) String() string {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s ListTagsForResourcesOutput) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.ResourceTagSets) > 0 {
+	if s.ResourceTagSets != nil {
 		v := s.ResourceTagSets
 
 		metadata := protocol.Metadata{ListLocationName: "ResourceTagSet"}
@@ -148,6 +146,7 @@ func (c *Client) ListTagsForResourcesRequest(input *ListTagsForResourcesInput) L
 	}
 
 	req := c.newRequest(op, input, &ListTagsForResourcesOutput{})
+
 	return ListTagsForResourcesRequest{Request: req, Input: input, Copy: c.ListTagsForResourcesRequest}
 }
 

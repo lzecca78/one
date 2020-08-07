@@ -16,7 +16,6 @@ var _ = awsutil.Prettify
 
 // A complex type that contains the type of limit that you specified in the
 // request and the current value for that limit.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AccountLimit
 type AccountLimit struct {
 	_ struct{} `type:"structure"`
 
@@ -73,7 +72,6 @@ func (s AccountLimit) MarshalFields(e protocol.FieldEncoder) error {
 // A complex type that identifies the CloudWatch alarm that you want Amazon
 // Route 53 health checkers to use to determine whether the specified health
 // check is healthy.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AlarmIdentifier
 type AlarmIdentifier struct {
 	_ struct{} `type:"structure"`
 
@@ -83,7 +81,7 @@ type AlarmIdentifier struct {
 	// Route 53 supports CloudWatch alarms with the following features:
 	//
 	//    * Standard-resolution metrics. High-resolution metrics aren't supported.
-	//    For more information, see High-Resolution Metrics (http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/publishingMetrics.html#high-resolution-metrics)
+	//    For more information, see High-Resolution Metrics (https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/publishingMetrics.html#high-resolution-metrics)
 	//    in the Amazon CloudWatch User Guide.
 	//
 	//    * Statistics: Average, Minimum, Maximum, Sum, and SampleCount. Extended
@@ -96,9 +94,8 @@ type AlarmIdentifier struct {
 	// determine whether this health check is healthy, the region that the alarm
 	// was created in.
 	//
-	// For the current list of CloudWatch regions, see Amazon CloudWatch (http://docs.aws.amazon.com/general/latest/gr/rande.html#cw_region)
-	// in the AWS Regions and Endpoints chapter of the Amazon Web Services General
-	// Reference.
+	// For the current list of CloudWatch regions, see Amazon CloudWatch (https://docs.aws.amazon.com/general/latest/gr/rande.html#cw_region)
+	// in the AWS Service Endpoints chapter of the Amazon Web Services General Reference.
 	//
 	// Region is a required field
 	Region CloudWatchRegion `min:"1" type:"string" required:"true" enum:"true"`
@@ -156,8 +153,7 @@ func (s AlarmIdentifier) MarshalFields(e protocol.FieldEncoder) error {
 //    record sets in a private hosted zone is unsupported.
 //
 //    * For information about creating failover resource record sets in a private
-//    hosted zone, see Configuring Failover in a Private Hosted Zone (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html).
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AliasTarget
+//    hosted zone, see Configuring Failover in a Private Hosted Zone (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html).
 type AliasTarget struct {
 	_ struct{} `type:"structure"`
 
@@ -192,7 +188,7 @@ type AliasTarget struct {
 	// the name of the resource record set. For example, if the name of the resource
 	// record set is acme.example.com, your CloudFront distribution must include
 	// acme.example.com as one of the alternate domain names. For more information,
-	// see Using Alternate Domain Names (CNAMEs) (http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html)
+	// see Using Alternate Domain Names (CNAMEs) (https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html)
 	// in the Amazon CloudFront Developer Guide.
 	//
 	// You can't create a resource record set in a private hosted zone to route
@@ -225,17 +221,17 @@ type AliasTarget struct {
 	//
 	//    * AWS Management Console: For information about how to get the value by
 	//    using the console, see Using Custom Domains with AWS Elastic Beanstalk
-	//    (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customdomains.html)
+	//    (https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customdomains.html)
 	//    in the AWS Elastic Beanstalk Developer Guide.
 	//
 	//    * Elastic Beanstalk API: Use the DescribeEnvironments action to get the
 	//    value of the CNAME attribute. For more information, see DescribeEnvironments
-	//    (http://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_DescribeEnvironments.html)
+	//    (https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_DescribeEnvironments.html)
 	//    in the AWS Elastic Beanstalk API Reference.
 	//
 	//    * AWS CLI: Use the describe-environments command to get the value of the
-	//    CNAME attribute. For more information, see describe-environments (http://docs.aws.amazon.com/cli/latest/reference/elasticbeanstalk/describe-environments.html)
-	//    in the AWS Command Line Interface Reference.
+	//    CNAME attribute. For more information, see describe-environments (https://docs.aws.amazon.com/cli/latest/reference/elasticbeanstalk/describe-environments.html)
+	//    in the AWS CLI Command Reference.
 	//
 	// ELB load balancer
 	//
@@ -251,22 +247,31 @@ type AliasTarget struct {
 	//
 	//    * Elastic Load Balancing API: Use DescribeLoadBalancers to get the value
 	//    of DNSName. For more information, see the applicable guide: Classic Load
-	//    Balancers: DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_DescribeLoadBalancers.html)
-	//    Application and Network Load Balancers: DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
+	//    Balancers: DescribeLoadBalancers (https://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_DescribeLoadBalancers.html)
+	//    Application and Network Load Balancers: DescribeLoadBalancers (https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
 	//
 	//    * AWS CLI: Use describe-load-balancers to get the value of DNSName. For
 	//    more information, see the applicable guide: Classic Load Balancers: describe-load-balancers
 	//    (http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html)
 	//    Application and Network Load Balancers: describe-load-balancers (http://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-load-balancers.html)
 	//
+	// AWS Global Accelerator accelerator
+	//
+	// Specify the DNS name for your accelerator:
+	//
+	//    * Global Accelerator API: To get the DNS name, use DescribeAccelerator
+	//    (https://docs.aws.amazon.com/global-accelerator/latest/api/API_DescribeAccelerator.html).
+	//
+	//    * AWS CLI: To get the DNS name, use describe-accelerator (https://docs.aws.amazon.com/cli/latest/reference/globalaccelerator/describe-accelerator.html).
+	//
 	// Amazon S3 bucket that is configured as a static website
 	//
 	// Specify the domain name of the Amazon S3 website endpoint that you created
 	// the bucket in, for example, s3-website.us-east-2.amazonaws.com. For more
-	// information about valid values, see the table Amazon Simple Storage Service
-	// (S3) Website Endpoints (http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)
+	// information about valid values, see the table Amazon S3 Website Endpoints
+	// (https://docs.aws.amazon.com/general/latest/gr/s3.html#s3_website_region_endpoints)
 	// in the Amazon Web Services General Reference. For more information about
-	// using S3 buckets for websites, see Getting Started with Amazon Route 53 (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started.html)
+	// using S3 buckets for websites, see Getting Started with Amazon Route 53 (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started.html)
 	// in the Amazon Route 53 Developer Guide.
 	//
 	// Another Route 53 resource record set
@@ -347,11 +352,11 @@ type AliasTarget struct {
 	// records (for example, a group of weighted records) but is not another alias
 	// record, we recommend that you associate a health check with all of the records
 	// in the alias target. For more information, see What Happens When You Omit
-	// Health Checks? (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-complex-configs.html#dns-failover-complex-configs-hc-omitting)
+	// Health Checks? (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-complex-configs.html#dns-failover-complex-configs-hc-omitting)
 	// in the Amazon Route 53 Developer Guide.
 	//
 	// For more information and examples, see Amazon Route 53 Health Checks and
-	// DNS Failover (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
+	// DNS Failover (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
 	// in the Amazon Route 53 Developer Guide.
 	//
 	// EvaluateTargetHealth is a required field
@@ -384,8 +389,8 @@ type AliasTarget struct {
 	//
 	// Specify the hosted zone ID for the region that you created the environment
 	// in. The environment must have a regionalized subdomain. For a list of regions
-	// and the corresponding hosted zone IDs, see AWS Elastic Beanstalk (http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
-	// in the "AWS Regions and Endpoints" chapter of the Amazon Web Services General
+	// and the corresponding hosted zone IDs, see AWS Elastic Beanstalk (https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
+	// in the "AWS Service Endpoints" chapter of the Amazon Web Services General
 	// Reference.
 	//
 	// ELB load balancer
@@ -393,11 +398,12 @@ type AliasTarget struct {
 	// Specify the value of the hosted zone ID for the load balancer. Use the following
 	// methods to get the hosted zone ID:
 	//
-	//    * Elastic Load Balancing (https://docs.aws.amazon.com/general/latest/gr/rande.html#elb_region)
-	//    table in the "AWS Regions and Endpoints" chapter of the Amazon Web Services
-	//    General Reference: Use the value that corresponds with the region that
-	//    you created your load balancer in. Note that there are separate columns
-	//    for Application and Classic Load Balancers and for Network Load Balancers.
+	//    * Service Endpoints (https://docs.aws.amazon.com/general/latest/gr/elb.html)
+	//    table in the "Elastic Load Balancing Endpoints and Quotas" topic in the
+	//    Amazon Web Services General Reference: Use the value that corresponds
+	//    with the region that you created your load balancer in. Note that there
+	//    are separate columns for Application and Classic Load Balancers and for
+	//    Network Load Balancers.
 	//
 	//    * AWS Management Console: Go to the Amazon EC2 page, choose Load Balancers
 	//    in the navigation pane, select the load balancer, and get the value of
@@ -405,9 +411,9 @@ type AliasTarget struct {
 	//
 	//    * Elastic Load Balancing API: Use DescribeLoadBalancers to get the applicable
 	//    value. For more information, see the applicable guide: Classic Load Balancers:
-	//    Use DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_DescribeLoadBalancers.html)
+	//    Use DescribeLoadBalancers (https://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_DescribeLoadBalancers.html)
 	//    to get the value of CanonicalHostedZoneNameId. Application and Network
-	//    Load Balancers: Use DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
+	//    Load Balancers: Use DescribeLoadBalancers (https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
 	//    to get the value of CanonicalHostedZoneId.
 	//
 	//    * AWS CLI: Use describe-load-balancers to get the applicable value. For
@@ -417,13 +423,16 @@ type AliasTarget struct {
 	//    Load Balancers: Use describe-load-balancers (http://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-load-balancers.html)
 	//    to get the value of CanonicalHostedZoneId.
 	//
+	// AWS Global Accelerator accelerator
+	//
+	// Specify Z2BJ6XQ5FK7U4H.
+	//
 	// An Amazon S3 bucket configured as a static website
 	//
 	// Specify the hosted zone ID for the region that you created the bucket in.
-	// For more information about valid values, see the Amazon Simple Storage Service
-	// Website Endpoints (http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)
-	// table in the "AWS Regions and Endpoints" chapter of the Amazon Web Services
-	// General Reference.
+	// For more information about valid values, see the table Amazon S3 Website
+	// Endpoints (https://docs.aws.amazon.com/general/latest/gr/s3.html#s3_website_region_endpoints)
+	// in the Amazon Web Services General Reference.
 	//
 	// Another Route 53 resource record set in your hosted zone
 	//
@@ -485,7 +494,6 @@ func (s AliasTarget) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // The information for each resource record set that you want to change.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/Change
 type Change struct {
 	_ struct{} `type:"structure"`
 
@@ -559,7 +567,6 @@ func (s Change) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // The information for a change request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeBatch
 type ChangeBatch struct {
 	_ struct{} `type:"structure"`
 
@@ -603,7 +610,7 @@ func (s *ChangeBatch) Validate() error {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s ChangeBatch) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.Changes) > 0 {
+	if s.Changes != nil {
 		v := s.Changes
 
 		metadata := protocol.Metadata{ListLocationName: "Change"}
@@ -626,7 +633,6 @@ func (s ChangeBatch) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that describes change information about changes made to your
 // hosted zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeInfo
 type ChangeInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -654,7 +660,7 @@ type ChangeInfo struct {
 	// at 17:48:16.751 UTC.
 	//
 	// SubmittedAt is a required field
-	SubmittedAt *time.Time `type:"timestamp" timestampFormat:"iso8601" required:"true"`
+	SubmittedAt *time.Time `type:"timestamp" required:"true"`
 }
 
 // String returns the string representation
@@ -686,14 +692,14 @@ func (s ChangeInfo) MarshalFields(e protocol.FieldEncoder) error {
 		v := *s.SubmittedAt
 
 		metadata := protocol.Metadata{}
-		e.SetValue(protocol.BodyTarget, "SubmittedAt", protocol.TimeValue{V: v, Format: protocol.ISO8601TimeFormat}, metadata)
+		e.SetValue(protocol.BodyTarget, "SubmittedAt",
+			protocol.TimeValue{V: v, Format: protocol.ISO8601TimeFormatName, QuotedFormatTime: false}, metadata)
 	}
 	return nil
 }
 
 // A complex type that contains information about the CloudWatch alarm that
 // Amazon Route 53 is monitoring for this health check.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CloudWatchAlarmConfiguration
 type CloudWatchAlarmConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -705,7 +711,7 @@ type CloudWatchAlarmConfiguration struct {
 
 	// For the metric that the CloudWatch alarm is associated with, a complex type
 	// that contains information about the dimensions for the metric. For information,
-	// see Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference (http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
+	// see Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference (https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
 	// in the Amazon CloudWatch User Guide.
 	Dimensions []Dimension `locationNameList:"Dimension" type:"list"`
 
@@ -721,7 +727,7 @@ type CloudWatchAlarmConfiguration struct {
 	MetricName *string `min:"1" type:"string" required:"true"`
 
 	// The namespace of the metric that the alarm is associated with. For more information,
-	// see Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference (http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
+	// see Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference (https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
 	// in the Amazon CloudWatch User Guide.
 	//
 	// Namespace is a required field
@@ -759,7 +765,7 @@ func (s CloudWatchAlarmConfiguration) MarshalFields(e protocol.FieldEncoder) err
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "ComparisonOperator", v, metadata)
 	}
-	if len(s.Dimensions) > 0 {
+	if s.Dimensions != nil {
 		v := s.Dimensions
 
 		metadata := protocol.Metadata{ListLocationName: "Dimension"}
@@ -812,7 +818,6 @@ func (s CloudWatchAlarmConfiguration) MarshalFields(e protocol.FieldEncoder) err
 
 // A complex type that lists the name servers in a delegation set, as well as
 // the CallerReference and the ID for the delegation set.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DelegationSet
 type DelegationSet struct {
 	_ struct{} `type:"structure"`
 
@@ -849,7 +854,7 @@ func (s DelegationSet) MarshalFields(e protocol.FieldEncoder) error {
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "Id", protocol.StringValue(v), metadata)
 	}
-	if len(s.NameServers) > 0 {
+	if s.NameServers != nil {
 		v := s.NameServers
 
 		metadata := protocol.Metadata{ListLocationName: "NameServer"}
@@ -866,7 +871,6 @@ func (s DelegationSet) MarshalFields(e protocol.FieldEncoder) error {
 
 // For the metric that the CloudWatch alarm is associated with, a complex type
 // that contains information about one dimension.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/Dimension
 type Dimension struct {
 	_ struct{} `type:"structure"`
 
@@ -906,23 +910,44 @@ func (s Dimension) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains information about a geographic location.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GeoLocation
 type GeoLocation struct {
 	_ struct{} `type:"structure"`
 
 	// The two-letter code for the continent.
 	//
-	// Valid values: AF | AN | AS | EU | OC | NA | SA
+	// Amazon Route 53 supports the following continent codes:
+	//
+	//    * AF: Africa
+	//
+	//    * AN: Antarctica
+	//
+	//    * AS: Asia
+	//
+	//    * EU: Europe
+	//
+	//    * OC: Oceania
+	//
+	//    * NA: North America
+	//
+	//    * SA: South America
 	//
 	// Constraint: Specifying ContinentCode with either CountryCode or SubdivisionCode
 	// returns an InvalidInput error.
 	ContinentCode *string `min:"2" type:"string"`
 
-	// The two-letter code for the country.
+	// For geolocation resource record sets, the two-letter code for a country.
+	//
+	// Amazon Route 53 uses the two-letter country codes that are specified in ISO
+	// standard 3166-1 alpha-2 (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
 	CountryCode *string `min:"1" type:"string"`
 
-	// The code for the subdivision. Route 53 currently supports only states in
-	// the United States.
+	// For geolocation resource record sets, the two-letter code for a state of
+	// the United States. Route 53 doesn't support any other values for SubdivisionCode.
+	// For a list of state abbreviations, see Appendix B: Two–Letter State and
+	// Possession Abbreviations (https://pe.usps.com/text/pub28/28apb.htm) on the
+	// United States Postal Service website.
+	//
+	// If you specify subdivisioncode, you must also specify US for CountryCode.
 	SubdivisionCode *string `min:"1" type:"string"`
 }
 
@@ -975,7 +1000,6 @@ func (s GeoLocation) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains the codes and full continent, country, and subdivision
 // names for the specified geolocation code.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GeoLocationDetails
 type GeoLocationDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -1048,7 +1072,6 @@ func (s GeoLocationDetails) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains information about one health check that is associated
 // with the current AWS account.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HealthCheck
 type HealthCheck struct {
 	_ struct{} `type:"structure"`
 
@@ -1134,7 +1157,6 @@ func (s HealthCheck) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains information about the health check.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HealthCheckConfig
 type HealthCheckConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -1194,7 +1216,7 @@ type HealthCheckConfig struct {
 	// The number of consecutive health checks that an endpoint must pass or fail
 	// for Amazon Route 53 to change the current status of the endpoint from unhealthy
 	// to healthy or vice versa. For more information, see How Amazon Route 53 Determines
-	// Whether an Endpoint Is Healthy (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
+	// Whether an Endpoint Is Healthy (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
 	// in the Amazon Route 53 Developer Guide.
 	//
 	// If you don't specify a value for FailureThreshold, the default value is three
@@ -1338,8 +1360,11 @@ type HealthCheckConfig struct {
 	// You can't change the value of MeasureLatency after you create a health check.
 	MeasureLatency *bool `type:"boolean"`
 
-	// The port on the endpoint on which you want Amazon Route 53 to perform health
-	// checks. Specify a value for Port only when you specify a value for IPAddress.
+	// The port on the endpoint that you want Amazon Route 53 to perform health
+	// checks on.
+	//
+	// Don't specify a value for Port when you specify a value for Type of CLOUDWATCH_METRIC
+	// or CALCULATED.
 	Port *int64 `min:"1" type:"integer"`
 
 	// A complex type that contains one Region element for each region from which
@@ -1371,7 +1396,7 @@ type HealthCheckConfig struct {
 	// parameters, for example, /welcome.html?language=jp&login=y.
 	ResourcePath *string `type:"string"`
 
-	// If the value of Type is HTTP_STR_MATCH or HTTP_STR_MATCH, the string that
+	// If the value of Type is HTTP_STR_MATCH or HTTPS_STR_MATCH, the string that
 	// you want Amazon Route 53 to search for in the response body from the specified
 	// resource. If the string appears in the response body, Route 53 considers
 	// the resource healthy.
@@ -1468,7 +1493,7 @@ func (s HealthCheckConfig) MarshalFields(e protocol.FieldEncoder) error {
 		metadata := protocol.Metadata{}
 		e.SetFields(protocol.BodyTarget, "AlarmIdentifier", v, metadata)
 	}
-	if len(s.ChildHealthChecks) > 0 {
+	if s.ChildHealthChecks != nil {
 		v := s.ChildHealthChecks
 
 		metadata := protocol.Metadata{ListLocationName: "ChildHealthCheck"}
@@ -1540,7 +1565,7 @@ func (s HealthCheckConfig) MarshalFields(e protocol.FieldEncoder) error {
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "Port", protocol.Int64Value(v), metadata)
 	}
-	if len(s.Regions) > 0 {
+	if s.Regions != nil {
 		v := s.Regions
 
 		metadata := protocol.Metadata{ListLocationName: "Region"}
@@ -1581,7 +1606,6 @@ func (s HealthCheckConfig) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains the last failure reason as reported by one Amazon
 // Route 53 health checker.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HealthCheckObservation
 type HealthCheckObservation struct {
 	_ struct{} `type:"structure"`
 
@@ -1627,7 +1651,6 @@ func (s HealthCheckObservation) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains general information about the hosted zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HostedZone
 type HostedZone struct {
 	_ struct{} `type:"structure"`
 
@@ -1716,7 +1739,6 @@ func (s HostedZone) MarshalFields(e protocol.FieldEncoder) error {
 // A complex type that contains an optional comment about your hosted zone.
 // If you don't want to specify a comment, omit both the HostedZoneConfig and
 // Comment elements.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HostedZoneConfig
 type HostedZoneConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -1751,7 +1773,6 @@ func (s HostedZoneConfig) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains the type of limit that you specified in the
 // request and the current value for that limit.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HostedZoneLimit
 type HostedZoneLimit struct {
 	_ struct{} `type:"structure"`
 
@@ -1794,11 +1815,107 @@ func (s HostedZoneLimit) MarshalFields(e protocol.FieldEncoder) error {
 	return nil
 }
 
+// A complex type that identifies a hosted zone that a specified Amazon VPC
+// is associated with and the owner of the hosted zone. If there is a value
+// for OwningAccount, there is no value for OwningService, and vice versa.
+type HostedZoneOwner struct {
+	_ struct{} `type:"structure"`
+
+	// If the hosted zone was created by an AWS account, or was created by an AWS
+	// service that creates hosted zones using the current account, OwningAccount
+	// contains the account ID of that account. For example, when you use AWS Cloud
+	// Map to create a hosted zone, Cloud Map creates the hosted zone using the
+	// current AWS account.
+	OwningAccount *string `type:"string"`
+
+	// If an AWS service uses its own account to create a hosted zone and associate
+	// the specified VPC with that hosted zone, OwningService contains an abbreviation
+	// that identifies the service. For example, if Amazon Elastic File System (Amazon
+	// EFS) created a hosted zone and associated a VPC with the hosted zone, the
+	// value of OwningService is efs.amazonaws.com.
+	OwningService *string `type:"string"`
+}
+
+// String returns the string representation
+func (s HostedZoneOwner) String() string {
+	return awsutil.Prettify(s)
+}
+
+// MarshalFields encodes the AWS API shape using the passed in protocol encoder.
+func (s HostedZoneOwner) MarshalFields(e protocol.FieldEncoder) error {
+	if s.OwningAccount != nil {
+		v := *s.OwningAccount
+
+		metadata := protocol.Metadata{}
+		e.SetValue(protocol.BodyTarget, "OwningAccount", protocol.StringValue(v), metadata)
+	}
+	if s.OwningService != nil {
+		v := *s.OwningService
+
+		metadata := protocol.Metadata{}
+		e.SetValue(protocol.BodyTarget, "OwningService", protocol.StringValue(v), metadata)
+	}
+	return nil
+}
+
+// In the response to a ListHostedZonesByVPC request, the HostedZoneSummaries
+// element contains one HostedZoneSummary element for each hosted zone that
+// the specified Amazon VPC is associated with. Each HostedZoneSummary element
+// contains the hosted zone name and ID, and information about who owns the
+// hosted zone.
+type HostedZoneSummary struct {
+	_ struct{} `type:"structure"`
+
+	// The Route 53 hosted zone ID of a private hosted zone that the specified VPC
+	// is associated with.
+	//
+	// HostedZoneId is a required field
+	HostedZoneId *string `type:"string" required:"true"`
+
+	// The name of the private hosted zone, such as example.com.
+	//
+	// Name is a required field
+	Name *string `type:"string" required:"true"`
+
+	// The owner of a private hosted zone that the specified VPC is associated with.
+	// The owner can be either an AWS account or an AWS service.
+	//
+	// Owner is a required field
+	Owner *HostedZoneOwner `type:"structure" required:"true"`
+}
+
+// String returns the string representation
+func (s HostedZoneSummary) String() string {
+	return awsutil.Prettify(s)
+}
+
+// MarshalFields encodes the AWS API shape using the passed in protocol encoder.
+func (s HostedZoneSummary) MarshalFields(e protocol.FieldEncoder) error {
+	if s.HostedZoneId != nil {
+		v := *s.HostedZoneId
+
+		metadata := protocol.Metadata{}
+		e.SetValue(protocol.BodyTarget, "HostedZoneId", protocol.StringValue(v), metadata)
+	}
+	if s.Name != nil {
+		v := *s.Name
+
+		metadata := protocol.Metadata{}
+		e.SetValue(protocol.BodyTarget, "Name", protocol.StringValue(v), metadata)
+	}
+	if s.Owner != nil {
+		v := s.Owner
+
+		metadata := protocol.Metadata{}
+		e.SetFields(protocol.BodyTarget, "Owner", v, metadata)
+	}
+	return nil
+}
+
 // If a health check or hosted zone was created by another service, LinkedService
 // is a complex type that describes the service that created the resource. When
 // a resource is created by another service, you can't edit or delete it using
 // Amazon Route 53.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/LinkedService
 type LinkedService struct {
 	_ struct{} `type:"structure"`
 
@@ -1838,7 +1955,6 @@ func (s LinkedService) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains information about a configuration for DNS query
 // logging.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/QueryLoggingConfig
 type QueryLoggingConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -1890,7 +2006,6 @@ func (s QueryLoggingConfig) MarshalFields(e protocol.FieldEncoder) error {
 // Information specific to the resource record.
 //
 // If you're creating an alias resource record set, omit ResourceRecord.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ResourceRecord
 type ResourceRecord struct {
 	_ struct{} `type:"structure"`
 
@@ -1940,7 +2055,6 @@ func (s ResourceRecord) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // Information about the resource record set to create or delete.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ResourceRecordSet
 type ResourceRecordSet struct {
 	_ struct{} `type:"structure"`
 
@@ -1958,7 +2072,7 @@ type ResourceRecordSet struct {
 	//    record sets in a private hosted zone is unsupported.
 	//
 	//    * For information about creating failover resource record sets in a private
-	//    hosted zone, see Configuring Failover in a Private Hosted Zone (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
+	//    hosted zone, see Configuring Failover in a Private Hosted Zone (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
 	//    in the Amazon Route 53 Developer Guide.
 	AliasTarget *AliasTarget `type:"structure"`
 
@@ -1998,9 +2112,9 @@ type ResourceRecordSet struct {
 	// For more information about configuring failover for Route 53, see the following
 	// topics in the Amazon Route 53 Developer Guide:
 	//
-	//    * Route 53 Health Checks and DNS Failover (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
+	//    * Route 53 Health Checks and DNS Failover (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
 	//
-	//    * Configuring Failover in a Private Hosted Zone (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
+	//    * Configuring Failover in a Private Hosted Zone (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
 	Failover ResourceRecordSetFailover `type:"string" enum:"true"`
 
 	// Geolocation resource record sets only: A complex type that lets you control
@@ -2009,8 +2123,8 @@ type ResourceRecordSet struct {
 	// to a web server with an IP address of 192.0.2.111, create a resource record
 	// set with a Type of A and a ContinentCode of AF.
 	//
-	// Creating geolocation and geolocation alias resource record sets in private
-	// hosted zones is not supported.
+	// Although creating geolocation and geolocation alias resource record sets
+	// in a private hosted zone is allowed, it's not supported.
 	//
 	// If you create separate resource record sets for overlapping geographic regions
 	// (for example, one resource record set for a continent and one for a country
@@ -2029,11 +2143,12 @@ type ResourceRecordSet struct {
 	// addresses aren't mapped to geographic locations, so even if you create geolocation
 	// resource record sets that cover all seven continents, Route 53 will receive
 	// some DNS queries from locations that it can't identify. We recommend that
-	// you create a resource record set for which the value of CountryCode is *,
-	// which handles both queries that come from locations for which you haven't
-	// created geolocation resource record sets and queries from IP addresses that
-	// aren't mapped to a location. If you don't create a * resource record set,
-	// Route 53 returns a "no answer" response for queries from those locations.
+	// you create a resource record set for which the value of CountryCode is *.
+	// Two groups of queries are routed to the resource that you specify in this
+	// record: queries that come from locations for which you haven't created geolocation
+	// resource record sets and queries from IP addresses that aren't mapped to
+	// a location. If you don't create a * resource record set, Route 53 returns
+	// a "no answer" response for queries from those locations.
 	//
 	// You can't create non-geolocation resource record sets that have the same
 	// values for the Name and Type elements as geolocation resource record sets.
@@ -2066,9 +2181,9 @@ type ResourceRecordSet struct {
 	//
 	//    * How Amazon Route 53 Determines Whether an Endpoint Is Healthy (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
 	//
-	//    * Route 53 Health Checks and DNS Failover (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
+	//    * Route 53 Health Checks and DNS Failover (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
 	//
-	//    * Configuring Failover in a Private Hosted Zone (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
+	//    * Configuring Failover in a Private Hosted Zone (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
 	//
 	// When to Specify HealthCheckId
 	//
@@ -2181,7 +2296,7 @@ type ResourceRecordSet struct {
 	//
 	// For information about how to specify characters other than a-z, 0-9, and
 	// - (hyphen) and how to specify internationalized domain names, see DNS Domain
-	// Name Format (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
+	// Name Format (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
 	// in the Amazon Route 53 Developer Guide.
 	//
 	// You can use the asterisk (*) wildcard to replace the leftmost label in a
@@ -2211,8 +2326,8 @@ type ResourceRecordSet struct {
 	// and is referred to by an IP address or a DNS domain name, depending on the
 	// record type.
 	//
-	// Creating latency and latency alias resource record sets in private hosted
-	// zones is not supported.
+	// Although creating latency and latency alias resource record sets in a private
+	// hosted zone is allowed, it's not supported.
 	//
 	// When Amazon Route 53 receives a DNS query for a domain name and type for
 	// which you have created latency resource record sets, Route 53 selects the
@@ -2286,7 +2401,7 @@ type ResourceRecordSet struct {
 	TrafficPolicyInstanceId *string `min:"1" type:"string"`
 
 	// The DNS record type. For information about different record types and how
-	// data is encoded for them, see Supported DNS Resource Record Types (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html)
+	// data is encoded for them, see Supported DNS Resource Record Types (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html)
 	// in the Amazon Route 53 Developer Guide.
 	//
 	// Valid values for basic resource record sets: A | AAAA | CAA | CNAME | MX
@@ -2317,8 +2432,7 @@ type ResourceRecordSet struct {
 	//    create two resource record sets to route traffic to your distribution,
 	//    one with a value of A and one with a value of AAAA.
 	//
-	//    * AWS Elastic Beanstalk environment that has a regionalized subdomain:
-	//    A
+	//    * Amazon API Gateway environment that has a regionalized subdomain: A
 	//
 	//    * ELB load balancers: A | AAAA
 	//
@@ -2366,7 +2480,7 @@ type ResourceRecordSet struct {
 	//    of DNS name and type, traffic is routed to all resources with equal probability.
 	//    The effect of setting Weight to 0 is different when you associate health
 	//    checks with weighted resource record sets. For more information, see Options
-	//    for Configuring Route 53 Active-Active and Active-Passive Failover (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-configuring-options.html)
+	//    for Configuring Route 53 Active-Active and Active-Passive Failover (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-configuring-options.html)
 	//    in the Amazon Route 53 Developer Guide.
 	Weight *int64 `type:"long"`
 }
@@ -2464,7 +2578,7 @@ func (s ResourceRecordSet) MarshalFields(e protocol.FieldEncoder) error {
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "Region", v, metadata)
 	}
-	if len(s.ResourceRecords) > 0 {
+	if s.ResourceRecords != nil {
 		v := s.ResourceRecords
 
 		metadata := protocol.Metadata{ListLocationName: "ResourceRecord"}
@@ -2510,7 +2624,6 @@ func (s ResourceRecordSet) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type containing a resource and its associated tags.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ResourceTagSet
 type ResourceTagSet struct {
 	_ struct{} `type:"structure"`
 
@@ -2547,7 +2660,7 @@ func (s ResourceTagSet) MarshalFields(e protocol.FieldEncoder) error {
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "ResourceType", v, metadata)
 	}
-	if len(s.Tags) > 0 {
+	if s.Tags != nil {
 		v := s.Tags
 
 		metadata := protocol.Metadata{ListLocationName: "Tag"}
@@ -2564,7 +2677,6 @@ func (s ResourceTagSet) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains the type of limit that you specified in the
 // request and the current value for that limit.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ReusableDelegationSetLimit
 type ReusableDelegationSetLimit struct {
 	_ struct{} `type:"structure"`
 
@@ -2605,7 +2717,6 @@ func (s ReusableDelegationSetLimit) MarshalFields(e protocol.FieldEncoder) error
 
 // A complex type that contains the status that one Amazon Route 53 health checker
 // reports and the time of the health check.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/StatusReport
 type StatusReport struct {
 	_ struct{} `type:"structure"`
 
@@ -2613,7 +2724,7 @@ type StatusReport struct {
 	// 8601 format (https://en.wikipedia.org/wiki/ISO_8601) and Coordinated Universal
 	// Time (UTC). For example, the value 2017-03-27T17:48:16.751Z represents March
 	// 27, 2017 at 17:48:16.751 UTC.
-	CheckedTime *time.Time `type:"timestamp" timestampFormat:"iso8601"`
+	CheckedTime *time.Time `type:"timestamp"`
 
 	// A description of the status of the health check endpoint as reported by one
 	// of the Amazon Route 53 health checkers.
@@ -2631,7 +2742,8 @@ func (s StatusReport) MarshalFields(e protocol.FieldEncoder) error {
 		v := *s.CheckedTime
 
 		metadata := protocol.Metadata{}
-		e.SetValue(protocol.BodyTarget, "CheckedTime", protocol.TimeValue{V: v, Format: protocol.ISO8601TimeFormat}, metadata)
+		e.SetValue(protocol.BodyTarget, "CheckedTime",
+			protocol.TimeValue{V: v, Format: protocol.ISO8601TimeFormatName, QuotedFormatTime: false}, metadata)
 	}
 	if s.Status != nil {
 		v := *s.Status
@@ -2644,7 +2756,6 @@ func (s StatusReport) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains information about a tag that you want to add
 // or edit for the specified health check or hosted zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/Tag
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -2695,7 +2806,6 @@ func (s Tag) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains settings for a traffic policy.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/TrafficPolicy
 type TrafficPolicy struct {
 	_ struct{} `type:"structure"`
 
@@ -2780,7 +2890,6 @@ func (s TrafficPolicy) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains settings for the new traffic policy instance.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/TrafficPolicyInstance
 type TrafficPolicyInstance struct {
 	_ struct{} `type:"structure"`
 
@@ -2920,7 +3029,6 @@ func (s TrafficPolicyInstance) MarshalFields(e protocol.FieldEncoder) error {
 
 // A complex type that contains information about the latest version of one
 // traffic policy that is associated with the current AWS account.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/TrafficPolicySummary
 type TrafficPolicySummary struct {
 	_ struct{} `type:"structure"`
 
@@ -2994,7 +3102,6 @@ func (s TrafficPolicySummary) MarshalFields(e protocol.FieldEncoder) error {
 
 // (Private hosted zones only) A complex type that contains information about
 // an Amazon VPC.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/VPC
 type VPC struct {
 	_ struct{} `type:"structure"`
 

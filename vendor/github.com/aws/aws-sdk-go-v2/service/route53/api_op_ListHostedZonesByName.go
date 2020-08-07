@@ -12,7 +12,6 @@ import (
 
 // Retrieves a list of the public and private hosted zones that are associated
 // with the current AWS account in ASCII order by domain name.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListHostedZonesByNameRequest
 type ListHostedZonesByNameInput struct {
 	_ struct{} `type:"structure"`
 
@@ -73,7 +72,6 @@ func (s ListHostedZonesByNameInput) MarshalFields(e protocol.FieldEncoder) error
 }
 
 // A complex type that contains the response information for the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListHostedZonesByNameResponse
 type ListHostedZonesByNameOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -142,7 +140,7 @@ func (s ListHostedZonesByNameOutput) MarshalFields(e protocol.FieldEncoder) erro
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "HostedZoneId", protocol.StringValue(v), metadata)
 	}
-	if len(s.HostedZones) > 0 {
+	if s.HostedZones != nil {
 		v := s.HostedZones
 
 		metadata := protocol.Metadata{ListLocationName: "HostedZone"}
@@ -207,7 +205,7 @@ const opListHostedZonesByName = "ListHostedZonesByName"
 //
 // The labels are reversed and alphabetized using the escaped value. For more
 // information about valid domain name formats, including internationalized
-// domain names, see DNS Domain Name Format (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
+// domain names, see DNS Domain Name Format (https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
 // in the Amazon Route 53 Developer Guide.
 //
 // Route 53 returns up to 100 items in each response. If you have a lot of hosted
@@ -256,6 +254,7 @@ func (c *Client) ListHostedZonesByNameRequest(input *ListHostedZonesByNameInput)
 	}
 
 	req := c.newRequest(op, input, &ListHostedZonesByNameOutput{})
+
 	return ListHostedZonesByNameRequest{Request: req, Input: input, Copy: c.ListHostedZonesByNameRequest}
 }
 

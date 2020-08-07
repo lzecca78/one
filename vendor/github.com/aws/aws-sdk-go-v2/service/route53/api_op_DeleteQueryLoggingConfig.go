@@ -10,7 +10,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/private/protocol"
 )
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfigRequest
 type DeleteQueryLoggingConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -54,7 +53,6 @@ func (s DeleteQueryLoggingConfigInput) MarshalFields(e protocol.FieldEncoder) er
 	return nil
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfigResponse
 type DeleteQueryLoggingConfigOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -100,6 +98,7 @@ func (c *Client) DeleteQueryLoggingConfigRequest(input *DeleteQueryLoggingConfig
 	}
 
 	req := c.newRequest(op, input, &DeleteQueryLoggingConfigOutput{})
+
 	return DeleteQueryLoggingConfigRequest{Request: req, Input: input, Copy: c.DeleteQueryLoggingConfigRequest}
 }
 

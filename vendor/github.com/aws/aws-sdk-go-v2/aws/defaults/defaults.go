@@ -9,9 +9,7 @@ package defaults
 
 import (
 	"log"
-	"net/http"
 	"os"
-	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/endpoints"
@@ -55,17 +53,8 @@ func Config() aws.Config {
 // HTTPClient will return a new HTTP Client configured for the SDK.
 //
 // Does not use http.DefaultClient nor http.DefaultTransport.
-func HTTPClient() *http.Client {
-	return &http.Client{
-		Transport: &http.Transport{
-			Proxy:                 http.ProxyFromEnvironment,
-			MaxIdleConns:          100,
-			MaxIdleConnsPerHost:   10,
-			IdleConnTimeout:       30 * time.Second,
-			TLSHandshakeTimeout:   10 * time.Second,
-			ExpectContinueTimeout: 5 * time.Second,
-		},
-	}
+func HTTPClient() aws.HTTPClient {
+	return aws.NewBuildableHTTPClient()
 }
 
 // Handlers returns the default request handlers.
@@ -81,11 +70,14 @@ func Handlers() aws.Handlers {
 	handlers.Validate.AfterEachFn = aws.HandlerListStopOnError
 	handlers.Build.PushBackNamed(SDKVersionUserAgentHandler)
 	handlers.Build.PushBackNamed(AddHostExecEnvUserAgentHander)
+	handlers.Build.PushFrontNamed(RequestInvocationIDHeaderHandler)
 	handlers.Build.AfterEachFn = aws.HandlerListStopOnError
 	handlers.Sign.PushBackNamed(BuildContentLengthHandler)
+	handlers.Sign.PushFrontNamed(RetryMetricHeaderHandler)
 	handlers.Send.PushBackNamed(ValidateReqSigHandler)
 	handlers.Send.PushBackNamed(SendHandler)
-	handlers.AfterRetry.PushBackNamed(AfterRetryHandler)
+	handlers.Send.PushBackNamed(AttemptClockSkewHandler)
+	handlers.ShouldRetry.PushBackNamed(RetryableCheckHandler)
 	handlers.ValidateResponse.PushBackNamed(ValidateResponseHandler)
 
 	return handlers

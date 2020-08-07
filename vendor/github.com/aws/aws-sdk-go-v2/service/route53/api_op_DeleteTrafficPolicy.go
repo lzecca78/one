@@ -11,7 +11,6 @@ import (
 )
 
 // A request to delete a specified traffic policy version.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteTrafficPolicyRequest
 type DeleteTrafficPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -74,7 +73,6 @@ func (s DeleteTrafficPolicyInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // An empty element.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteTrafficPolicyResponse
 type DeleteTrafficPolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -116,6 +114,7 @@ func (c *Client) DeleteTrafficPolicyRequest(input *DeleteTrafficPolicyInput) Del
 	}
 
 	req := c.newRequest(op, input, &DeleteTrafficPolicyOutput{})
+
 	return DeleteTrafficPolicyRequest{Request: req, Input: input, Copy: c.DeleteTrafficPolicyRequest}
 }
 

@@ -12,7 +12,6 @@ import (
 
 // A request to retrieve a list of the health checks that are associated with
 // the current AWS account.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListHealthChecksRequest
 type ListHealthChecksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -58,7 +57,6 @@ func (s ListHealthChecksInput) MarshalFields(e protocol.FieldEncoder) error {
 }
 
 // A complex type that contains the response to a ListHealthChecks request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListHealthChecksResponse
 type ListHealthChecksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -101,7 +99,7 @@ func (s ListHealthChecksOutput) String() string {
 
 // MarshalFields encodes the AWS API shape using the passed in protocol encoder.
 func (s ListHealthChecksOutput) MarshalFields(e protocol.FieldEncoder) error {
-	if len(s.HealthChecks) > 0 {
+	if s.HealthChecks != nil {
 		v := s.HealthChecks
 
 		metadata := protocol.Metadata{ListLocationName: "HealthCheck"}
@@ -174,6 +172,7 @@ func (c *Client) ListHealthChecksRequest(input *ListHealthChecksInput) ListHealt
 	}
 
 	req := c.newRequest(op, input, &ListHealthChecksOutput{})
+
 	return ListHealthChecksRequest{Request: req, Input: input, Copy: c.ListHealthChecksRequest}
 }
 

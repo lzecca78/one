@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains information about that can be associated with
 // your hosted zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListVPCAssociationAuthorizationsRequest
 type ListVPCAssociationAuthorizationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -79,7 +78,6 @@ func (s ListVPCAssociationAuthorizationsInput) MarshalFields(e protocol.FieldEnc
 }
 
 // A complex type that contains the response information for the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListVPCAssociationAuthorizationsResponse
 type ListVPCAssociationAuthorizationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -121,7 +119,7 @@ func (s ListVPCAssociationAuthorizationsOutput) MarshalFields(e protocol.FieldEn
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "NextToken", protocol.StringValue(v), metadata)
 	}
-	if len(s.VPCs) > 0 {
+	if s.VPCs != nil {
 		v := s.VPCs
 
 		metadata := protocol.Metadata{ListLocationName: "VPC"}
@@ -168,6 +166,7 @@ func (c *Client) ListVPCAssociationAuthorizationsRequest(input *ListVPCAssociati
 	}
 
 	req := c.newRequest(op, input, &ListVPCAssociationAuthorizationsOutput{})
+
 	return ListVPCAssociationAuthorizationsRequest{Request: req, Input: input, Copy: c.ListVPCAssociationAuthorizationsRequest}
 }
 

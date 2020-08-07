@@ -12,7 +12,6 @@ import (
 
 // A request for the traffic policy instances that you created in a specified
 // hosted zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTrafficPolicyInstancesByHostedZoneRequest
 type ListTrafficPolicyInstancesByHostedZoneInput struct {
 	_ struct{} `type:"structure"`
 
@@ -103,7 +102,6 @@ func (s ListTrafficPolicyInstancesByHostedZoneInput) MarshalFields(e protocol.Fi
 }
 
 // A complex type that contains the response information for the request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListTrafficPolicyInstancesByHostedZoneResponse
 type ListTrafficPolicyInstancesByHostedZoneOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -169,7 +167,7 @@ func (s ListTrafficPolicyInstancesByHostedZoneOutput) MarshalFields(e protocol.F
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "TrafficPolicyInstanceTypeMarker", v, metadata)
 	}
-	if len(s.TrafficPolicyInstances) > 0 {
+	if s.TrafficPolicyInstances != nil {
 		v := s.TrafficPolicyInstances
 
 		metadata := protocol.Metadata{ListLocationName: "TrafficPolicyInstance"}
@@ -221,6 +219,7 @@ func (c *Client) ListTrafficPolicyInstancesByHostedZoneRequest(input *ListTraffi
 	}
 
 	req := c.newRequest(op, input, &ListTrafficPolicyInstancesByHostedZoneOutput{})
+
 	return ListTrafficPolicyInstancesByHostedZoneRequest{Request: req, Input: input, Copy: c.ListTrafficPolicyInstancesByHostedZoneRequest}
 }
 

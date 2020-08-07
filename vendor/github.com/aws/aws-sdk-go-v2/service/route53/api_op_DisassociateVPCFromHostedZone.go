@@ -12,7 +12,6 @@ import (
 
 // A complex type that contains information about the VPC that you want to disassociate
 // from a specified private hosted zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DisassociateVPCFromHostedZoneRequest
 type DisassociateVPCFromHostedZoneInput struct {
 	_ struct{} `locationName:"DisassociateVPCFromHostedZoneRequest" type:"structure" xmlURI:"https://route53.amazonaws.com/doc/2013-04-01/"`
 
@@ -88,7 +87,6 @@ func (s DisassociateVPCFromHostedZoneInput) MarshalFields(e protocol.FieldEncode
 
 // A complex type that contains the response information for the disassociate
 // request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DisassociateVPCFromHostedZoneResponse
 type DisassociateVPCFromHostedZoneOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -120,16 +118,25 @@ const opDisassociateVPCFromHostedZone = "DisassociateVPCFromHostedZone"
 // DisassociateVPCFromHostedZoneRequest returns a request value for making API operation for
 // Amazon Route 53.
 //
-// Disassociates a VPC from a Amazon Route 53 private hosted zone. Note the
-// following:
+// Disassociates an Amazon Virtual Private Cloud (Amazon VPC) from an Amazon
+// Route 53 private hosted zone. Note the following:
 //
-//    * You can't disassociate the last VPC from a private hosted zone.
+//    * You can't disassociate the last Amazon VPC from a private hosted zone.
 //
 //    * You can't convert a private hosted zone into a public hosted zone.
 //
 //    * You can submit a DisassociateVPCFromHostedZone request using either
 //    the account that created the hosted zone or the account that created the
-//    VPC.
+//    Amazon VPC.
+//
+//    * Some services, such as AWS Cloud Map and Amazon Elastic File System
+//    (Amazon EFS) automatically create hosted zones and associate VPCs with
+//    the hosted zones. A service can create a hosted zone using your account
+//    or using its own account. You can disassociate a VPC from a hosted zone
+//    only if the service created the hosted zone using your account. When you
+//    run DisassociateVPCFromHostedZone (https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListHostedZonesByVPC.html),
+//    if the hosted zone has a value for OwningAccount, you can use DisassociateVPCFromHostedZone.
+//    If the hosted zone has a value for OwningService, you can't use DisassociateVPCFromHostedZone.
 //
 //    // Example sending a request using DisassociateVPCFromHostedZoneRequest.
 //    req := client.DisassociateVPCFromHostedZoneRequest(params)
@@ -151,6 +158,7 @@ func (c *Client) DisassociateVPCFromHostedZoneRequest(input *DisassociateVPCFrom
 	}
 
 	req := c.newRequest(op, input, &DisassociateVPCFromHostedZoneOutput{})
+
 	return DisassociateVPCFromHostedZoneRequest{Request: req, Input: input, Copy: c.DisassociateVPCFromHostedZoneRequest}
 }
 

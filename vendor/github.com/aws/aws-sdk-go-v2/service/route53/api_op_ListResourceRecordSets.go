@@ -12,7 +12,6 @@ import (
 
 // A request for the resource record sets that are associated with a specified
 // hosted zone.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListResourceRecordSetsRequest
 type ListResourceRecordSetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -30,14 +29,16 @@ type ListResourceRecordSetsInput struct {
 	// of maxitems resource record sets.
 	MaxItems *string `location:"querystring" locationName:"maxitems" type:"string"`
 
-	// Weighted resource record sets only: If results were truncated for a given
-	// DNS name and type, specify the value of NextRecordIdentifier from the previous
-	// response to get the next resource record set that has the current DNS name
-	// and type.
+	// Resource record sets that have a routing policy other than simple: If results
+	// were truncated for a given DNS name and type, specify the value of NextRecordIdentifier
+	// from the previous response to get the next resource record set that has the
+	// current DNS name and type.
 	StartRecordIdentifier *string `location:"querystring" locationName:"identifier" min:"1" type:"string"`
 
 	// The first name in the lexicographic ordering of resource record sets that
-	// you want to list.
+	// you want to list. If the specified record name doesn't exist, the results
+	// begin with the first resource record set that has a name greater than the
+	// value of name.
 	StartRecordName *string `location:"querystring" locationName:"name" type:"string"`
 
 	// The type of resource record set to begin the record listing from.
@@ -58,9 +59,9 @@ type ListResourceRecordSetsInput struct {
 	//
 	//    * Elastic Load Balancing load balancer: A | AAAA
 	//
-	//    * Amazon S3 bucket: A
+	//    * S3 bucket: A
 	//
-	//    * Amazon VPC interface VPC endpoint: A
+	//    * VPC interface VPC endpoint: A
 	//
 	//    * Another resource record set in this hosted zone: The type of the resource
 	//    record set that the alias references.
@@ -129,7 +130,6 @@ func (s ListResourceRecordSetsInput) MarshalFields(e protocol.FieldEncoder) erro
 }
 
 // A complex type that contains list information for the resource record set.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListResourceRecordSetsResponse
 type ListResourceRecordSetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -206,7 +206,7 @@ func (s ListResourceRecordSetsOutput) MarshalFields(e protocol.FieldEncoder) err
 		metadata := protocol.Metadata{}
 		e.SetValue(protocol.BodyTarget, "NextRecordType", v, metadata)
 	}
-	if len(s.ResourceRecordSets) > 0 {
+	if s.ResourceRecordSets != nil {
 		v := s.ResourceRecordSets
 
 		metadata := protocol.Metadata{ListLocationName: "ResourceRecordSet"}
@@ -318,6 +318,7 @@ func (c *Client) ListResourceRecordSetsRequest(input *ListResourceRecordSetsInpu
 	}
 
 	req := c.newRequest(op, input, &ListResourceRecordSetsOutput{})
+
 	return ListResourceRecordSetsRequest{Request: req, Input: input, Copy: c.ListResourceRecordSetsRequest}
 }
 
