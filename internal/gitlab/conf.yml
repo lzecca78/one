@@ -1,0 +1,20 @@
+---
+conf:
+  repo1:
+    jenkinsJob: repo1-job
+    jenkinsToken: repo1-token
+  repo2:
+    jenkinsJob: repo2-job
+    jenkinsToken: repo2-token
+  repo3:
+    jenkinsJob: repo3-job
+    jenkinsToken: repo3-token
+  repo4:
+    jenkinsJob: repo4-job
+    jenkinsToken: repo4-token
+  repo5:
+    jenkinsJob: repo5-job
+    jenkinsToken: repo5-token
+  portal-ui:
+    jenkinsJob: repo6-job
+    jenkinsToken: repo6-token
